@@ -235,6 +235,34 @@ md"""
 >2変数の非線形計画問題の例で, 局所最適解において1次独立制約想定が成り立たないものを作り, その局所最適解で KKT 条件を満たすラグランジュ乗数が存在するかを調べよ.
 """
 
+# ╔═╡ 4e443cf1-5128-4d72-915a-ccf93cacccdd
+md"""
+```math
+\begin{aligned}
+\text{Minimize }& x_1^2 + x_2^2 \\
+\text{subject to }& x_1^2 - x_2 \ge 0 \\
+& x_2 \ge 0
+\end{aligned}
+```
+
+最適解は自明に ``\mathbf{x} = (0, 0)^T`` である.
+制約関数 ``g_1(\mathbf{x}) = -x_1^2 + x_2``, ``g_2(\mathbf{x}) = -x_2`` の勾配は,
+```math
+\begin{aligned}
+\nabla g_1(\mathbf{x}) &= \begin{pmatrix}-2x_1 \\ 1\end{pmatrix} \\
+\nabla g_2(\mathbf{x}) &= \begin{pmatrix} 0 \\ -1 \end{pmatrix} \\
+\end{aligned}
+```
+であるから, 最適解において, １次独立制約想定を満たさない. また, KKT 条件の一つである
+```math
+\begin{pmatrix}2x_1 \\ 2x_2\end{pmatrix} + \lambda_1 \nabla g_1(\mathbf{x}) + \lambda_2 g_2(\mathbf{x}) = \mathbf{0}
+```
+は最適解において, ``\lambda_1 = 1, \lambda_2 = 1`` において満たされている. (他の条件が満たされているのは自明.)
+
+追記として, 任意の ``\lambda_1 = \lambda_2 \ge 0`` において KKT 条件が満たされる. また, 解答例のように1次独立制約想定を満たさず, KKT 条件を満たす``\mathbf{\lambda}``が存在しない例を作ることが可能である.
+
+"""
+
 # ╔═╡ c259663d-9c04-4b70-bcd0-326de9731ecf
 md"""
 ## 3.6
@@ -502,8 +530,8 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─a4c64b38-3f39-4372-a769-9ca4b989aa88
 # ╠═8f91ab06-93d8-40b4-9d3c-ac1eb2ba39b6
 # ╟─2c019e57-2289-40a4-9e40-97a667bb6612
-# ╠═246382b2-5144-4d7d-9899-e555049251ab
-# ╠═77b39d1c-d518-41f6-9438-aed39622ad39
+# ╟─246382b2-5144-4d7d-9899-e555049251ab
+# ╟─77b39d1c-d518-41f6-9438-aed39622ad39
 # ╟─6bb876fc-cfb6-4d54-9648-d885fb8dfafe
 # ╟─e1cf7463-a554-4e90-bd21-83696977874c
 # ╟─49cc5a3a-bb18-4d0e-8265-cf82fc99e029
@@ -513,6 +541,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╟─013fe2e3-12bb-425c-8999-b243807632e7
 # ╟─889f4a0a-d7f3-42e8-a1fa-5b2887c1e8eb
 # ╟─7c6f4183-0052-450f-90f7-42ae8350be27
+# ╟─4e443cf1-5128-4d72-915a-ccf93cacccdd
 # ╟─c259663d-9c04-4b70-bcd0-326de9731ecf
 # ╟─a6702017-55d9-48cb-b075-6320d44c44e8
 # ╟─00000000-0000-0000-0000-000000000001
