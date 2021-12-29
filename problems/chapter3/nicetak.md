@@ -123,7 +123,7 @@ $$\begin{aligned}
 >$$\text{Minimize } \frac{1}{2}\left|\left|\sum_{j = 1}^n x_j\mathbf{a_j} - \mathbf{b}\right|\right|_2^2
 >+ \gamma \sum_{j = 1}^n |x_j|$$
 >に対する座標降下法の更新は
->$$x_l \rightarrow \frac{1}{||a||_2^2}\psi\left(
+>$$x_l \leftarrow \frac{1}{||a||_2^2}\psi\left(
     \left(\mathbf{b} - \sum_{j \ne l}x_j \mathbf{a_j}\right)^T\mathbf{a_j}\right)$$
 >と書けることを示せ. ただし, $\gamma$ は正の定数であり,
 >$\psi(s) = \begin{cases}
@@ -132,3 +132,20 @@ s - \gamma & s > \gamma \\
 s + \gamma & s < -\gamma
 \end{cases}$
 >である.
+
+目的関数を$f(\mathbf{x})$ として, $x_l$ に関して展開すると
+$$f(x_l) = \frac{1}{2}\left|\left|\sum_{j \ne l} x_j\mathbf{a_j} - \mathbf{b}\right|\right|_2^2
++ \frac{1}{2}||\mathbf{a_l}||_2^2x_l^2
++ \left(\sum_{j \ne l} x_j \mathbf{a_j} - \mathbf{b}\right)^T \mathbf{a_l}x_l
++ \gamma \sum_{j \ne l} |x_j| + \gamma|x_l|$$
+定数部分を除くと更新式は
+$$x_l \leftarrow \argmin_{x_l} \frac{1}{2}||\mathbf{a_l}||_2^2x_l^2
++ \left(\sum_{j \ne l} x_j \mathbf{a_j} - \mathbf{b}\right)^T \mathbf{a_l}x_l + \gamma|x_l|$$
+
+最適解が$x_l > 0$ にあるとすると, 一階条件から
+$$x_l = \frac{1}{||\mathbf{a_l}||_2^2}\left(\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} - \gamma\right)$$
+なお, これが$x_l > 0$ に存在する場合は, $\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} > \gamma$ を満たす.
+同様に, $\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} < - \gamma$ の時, 
+$$x_l = \frac{1}{||\mathbf{a_l}||_2^2}\left(\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} + \gamma\right)$$
+が最適解となる.
+いずれの条件も満たさない場合は, 自明に端点の$x_l = 0$ が解である.
