@@ -3,3 +3,4 @@ cvxpy
 networkx
 matplotlib
 seaborn
+sympy
