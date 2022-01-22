@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.17.3
+# v0.17.4
 
 using Markdown
 using InteractiveUtils
@@ -290,15 +290,23 @@ md"""
 md"""
 最適解が``x_l > 0`` にあるとすると, 一階条件から
 ```math
-x_l = \frac{1}{||\mathbf{a_l}||_2^2}\left(\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} - \gamma\right)
+x_l^{+} = \frac{1}{||\mathbf{a_l}||_2^2}\left(\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} - \gamma\right).
 ```
-なお, これが``x_l > 0`` に存在する場合は, ``\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} > \gamma`` を満たす.
-同様に, ``\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} < - \gamma`` の時, 
+なお, これが``x_l > 0`` に存在するための条件は, 
 ```math
-x_l = \frac{1}{||\mathbf{a_l}||_2^2}\left(\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} + \gamma\right)
+\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} > \gamma. \tag{1}
 ```
-が最適解となる.
-いずれの条件も満たさない場合は, 自明に端点の ``x_l = 0`` が解である.
+同様に, ``x_l < 0`` に最適解が存在する場合,
+```math
+x_l^{-} = \frac{1}{||\mathbf{a_l}||_2^2}\left(\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} + \gamma\right).
+```
+であり, 条件は
+```math
+\left(\mathbf{b} - \sum_{j \ne l} x_j \mathbf{a_j}\right)^T\mathbf{a_j} < - \gamma. \tag{2}
+```
+
+(1)が満たされる時, (2)の条件は満たされず, ``x_l^{+}`` の最適性から端点 ``0`` も解ではない. 同様に(2)の条件が満たされる時, ``x_l^{-}`` が解である.　(1)も(2)も満たさない場合は, 自明に端点の ``x_l = 0`` が解である.
+
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -314,7 +322,7 @@ PlutoUI = "~0.7.27"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.7.0"
+julia_version = "1.7.1"
 manifest_format = "2.0"
 
 [[deps.AbstractPlutoDingetjes]]
