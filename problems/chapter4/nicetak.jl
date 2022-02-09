@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.17.3
+# v0.17.7
 
 using Markdown
 using InteractiveUtils
@@ -288,8 +288,18 @@ FOC of ``\mathbf{z}``:
 \end{aligned}
 ```
 これを代入して, ``\mathbf{z} = \left(1 - \frac{1}{||\mathbf{s}||}\right)\mathbf{s}`` を得る. この時, ``||\mathbf{z}||_2 = ||\mathbf{s}||_2 - 1 \ge 0`` より,
-内点解条件は ``||\mathbf{s}||_2 \ge 1``. 内点解条件を満たさないときは, 自明に, 端点解 ``\mathbf{z} = \mathbf{0}``. 
+内点解条件は ``||\mathbf{s}||_2 \ge 1``.
 
+内点解条件を満たさないときは, 端点解 ``\mathbf{z} = \mathbf{0}`` が解であることを示す. 目的関数 ``f(\mathbf{z})`` の定数項 ``||\mathbf{s}||_2^2`` を除いた ``g(\mathbf{z})`` を考える.
+```math
+\begin{aligned}
+g(\mathbf{z}) &= ||\mathbf{z}||_2 + \frac{1}{2}||\mathbf{z}||_2^2 - \mathbf{z}^{\top}\mathbf{s} \\
+&\ge ||\mathbf{z}||_2 + \frac{1}{2}||\mathbf{z}||_2^2 - ||\mathbf{s}||_2||\mathbf{z}||_2 & (\because -||\mathbf{s}||_2||\mathbf{z}||_2 \le \mathbf{z}^{\top}\mathbf{s} \le ||\mathbf{s}||_2||\mathbf{z}||_2) \\
+&\ge \frac{1}{2}||\mathbf{z}||_2^2 & (\because ||\mathbf{s}||_2 \le 1)\\
+&\ge 0
+\end{aligned}
+```
+この時, ``g(\mathbf{z} = \mathbf{0}) = 0`` より, 下界と一致するため, これが最小値の解である. 以上より,
 ```math
 \text{prox}_h(\mathbf{s}) = \begin{cases}
 \mathbf{0} & ||\mathbf{s}||_2 < 1 \\
@@ -403,8 +413,8 @@ md"""
 ```math
 \begin{aligned}
 \mathbf{x}^{k + 1} &\leftarrow \arg\min_{\mathbf{x}} \{||\mathbf{x} - (\mathbf{z}^k - \mathbf{v}^k)||_2^2 \,|\, A\mathbf{x} = \mathbf{b}\} \\
-z_j^{k + 1} &\leftarrow \text{sthr}_{\frac{1}{\rho}}((A\mathbf{x}^{k + 1} + \mathbf{v}^k)_j) \\
-\mathbf{v}^{k + 1} &\leftarrow \mathbf{v}^k + A\mathbf{x}^{k + 1} - \mathbf{z}^{k + 1}
+z_j^{k + 1} &\leftarrow \text{sthr}_{\frac{1}{\rho}}((\mathbf{x}^{k + 1} + \mathbf{v}^k)_j) \\
+\mathbf{v}^{k + 1} &\leftarrow \mathbf{v}^k + \mathbf{x}^{k + 1} - \mathbf{z}^{k + 1}
 \end{aligned}
 ```
 であることが示せる.
@@ -438,7 +448,7 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.7.0"
+julia_version = "1.7.1"
 manifest_format = "2.0"
 
 [deps]
