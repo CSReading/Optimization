@@ -1,6 +1,7 @@
 numpy
 scipy
 cvxpy
+cvxopt
 networkx
 matplotlib
 seaborn
